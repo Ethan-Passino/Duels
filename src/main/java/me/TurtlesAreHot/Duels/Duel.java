@@ -108,6 +108,10 @@ public class Duel {
             p2.sendMessage(message);
         }
         tpAllToSpawn(p1, p2);
+        List<String> cmdsAfter = this.arena.getCommandsAfter();
+        for(String cmd : cmdsAfter) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+        }
         Main.removeDuel(this);
     }
 
