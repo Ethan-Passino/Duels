@@ -20,7 +20,7 @@ public class ArenaUtils {
 
             return null;
         }
-        return new Arena(getPos1(), getPos2(), name);
+        return new Arena(getPos1(), getPos2(), name, null);
     }
 
     public static void setPos1(Location pos) { pos1 = pos; }
@@ -40,7 +40,7 @@ public class ArenaUtils {
             e.printStackTrace();
         }
         return new Arena(arenaConfig.getLocation("player1-location"),
-                arenaConfig.getLocation("player2-location"), arenaConfig.getString("name"));
+                arenaConfig.getLocation("player2-location"), arenaConfig.getString("name"), arenaConfig.getStringList("commands-after"));
     }
 
 }
