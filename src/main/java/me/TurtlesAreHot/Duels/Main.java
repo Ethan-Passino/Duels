@@ -73,6 +73,7 @@ public class Main extends JavaPlugin {
             PrintWriter pw = new PrintWriter(customConfigFile);
             pw.println("time-limit: 5");
             pw.println("spawn-world: \"bending\"");
+            pw.println("time-before: 5");
             pw.close();
 
         } catch (FileNotFoundException e) {
