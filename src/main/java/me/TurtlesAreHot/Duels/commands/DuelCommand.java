@@ -63,6 +63,7 @@ public class DuelCommand implements CommandExecutor {
                     break;
                 }
                 Main.addInvite(new Invite(p.getUniqueId(), invited.getUniqueId()));
+                Main.msgPlayer(p, "You have invited " + invited.getName() + " to a duel!");
                 Main.msgPlayer(invited, p.getName()
                         + " has invited you to a duel! Type /duel accept or click on this message to accept.");
                 break;
