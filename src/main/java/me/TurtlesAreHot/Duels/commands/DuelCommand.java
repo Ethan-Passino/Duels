@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DuelCommand implements CommandExecutor {
     public void helpCommand(Player p) {
@@ -22,6 +23,7 @@ public class DuelCommand implements CommandExecutor {
         p.sendMessage(ChatColor.AQUA + "/duel invite <player> - Invites a player to a duel. Randomly chooses an arena.");
         p.sendMessage(ChatColor.AQUA + "/duel list - Lists all of the current duels in session.");
         p.sendMessage(ChatColor.AQUA + "/duel spectate <player> - If the given player is in a match it will allow you to spectate the player.");
+        p.sendMessage(ChatColor.AQUA + "/duel leave - If you are in a duel you leave the duel, this includes if you are spectating a duel.");
         p.sendMessage(ChatColor.DARK_AQUA + "Created by TurtlesAreHot");
     }
 
@@ -137,7 +139,50 @@ public class DuelCommand implements CommandExecutor {
                 theDuel.startMatch();
                 Main.removeInvite(inv);
                 break;
-            default:
+            case "leave":
+                // Case when leaving a duel.
+                if(!(p.hasPermission("duels.leave"))) {
+                    Main.noPerms(p, "duels.leave");
+                    break;
+                }
+                boolean isThePlayer = false;
+                for(UUID up : Main.getDuelPlayers()) {
+                    if(up.equals(p.getUniqueId())) {
+                        isThePlayer = true;
+                        break;
+                    }
+                }
+                if(!isThePlayer) {
+                    Main.msgPlayer(p, "You are not in a duel as a spectator or duel player.");
+                    break;
+                }
+                Duel dl = Main.getDuel(p.getUniqueId());
+                Duel ds = Main.getDuelSpectator(p.getUniqueId());
+                if(dl != null) {
+                    // This player is in the duel as a duel player.
+                    Player p1 = Bukkit.getPlayer(dl.getPlayer1().getPlayer());
+                    Player p2 = Bukkit.getPlayer(dl.getPlayer2().getPlayer());
+                    if(dl.getPlayer1().getPlayer().equals(p.getUniqueId())) {
+                        // This player is the player1
+                        dl.setWinner(dl.getPlayer2());
+                        Main.msgPlayer(p1, p1.getName() + " has left the duel!");
+                        Main.msgPlayer(p2, p1.getName() + " has left the duel!");
+                    } else {
+                        // This player is the player2
+                        dl.setWinner(dl.getPlayer1());
+                        Main.msgPlayer(p1, p2.getName() + " has left the duel!");
+                        Main.msgPlayer(p2, p2.getName() + " has left the duel!");
+
+                    }
+                    dl.endMatch(p1, p2);
+                }
+                if(ds != null) {
+                    // This player is in the duel as a spectator.
+                    ds.removeSpectator(p);
+                }
+                break;
+
+                default:
                 // help command
                 if(!p.hasPermission("duels.help")) {
                     Main.noPerms(p, "duels.help");
