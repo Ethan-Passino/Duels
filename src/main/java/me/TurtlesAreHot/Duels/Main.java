@@ -4,6 +4,7 @@ import me.TurtlesAreHot.Duels.commands.ArenaCommand;
 import me.TurtlesAreHot.Duels.commands.DuelCommand;
 import me.TurtlesAreHot.Duels.events.onDisconnect;
 import me.TurtlesAreHot.Duels.events.onKill;
+import me.TurtlesAreHot.Duels.events.onMovement;
 import me.TurtlesAreHot.Duels.utils.ArenaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,7 +29,7 @@ public class Main extends JavaPlugin {
     // target, requester
     private static HashMap<Invite, Long> invites;
     private static HashMap<Arena, Boolean> arenas;
-
+    private static List<UUID> cantMove;
     @Override
     public void onEnable() {
         createCustomConfig();
@@ -36,11 +37,13 @@ public class Main extends JavaPlugin {
         duels = new ArrayList<>();
         invites = new HashMap<>();
         arenas = new HashMap<>();
+        cantMove = new ArrayList<>();
         this.loadArenas();
         getCommand("arena").setExecutor(new ArenaCommand());
         getCommand("duel").setExecutor(new DuelCommand());
         this.getServer().getPluginManager().registerEvents(new onDisconnect(), this);
         this.getServer().getPluginManager().registerEvents(new onKill(), this);
+        this.getServer().getPluginManager().registerEvents(new onMovement(), this);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> checkInvites(), 0, 1200);
     }
 
@@ -191,5 +194,19 @@ public class Main extends JavaPlugin {
 
     public static void addArena(Arena a) {
         arenas.put(a, false);
+    }
+
+    public static void addCantMovePlayer(UUID p) {
+        cantMove.add(p);
+    }
+
+    public static void removeCantMovePlayer(UUID p) {
+        cantMove.remove(p);
+    }
+
+    public static boolean isCantMovePlayer(Player p) {
+        if(cantMove.contains(p.getUniqueId()))
+            return true;
+        return false;
     }
 }
