@@ -4,6 +4,8 @@ import me.TurtlesAreHot.Duels.Duel;
 import me.TurtlesAreHot.Duels.DuelPlayer;
 import me.TurtlesAreHot.Duels.Invite;
 import me.TurtlesAreHot.Duels.Main;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -64,8 +66,9 @@ public class DuelCommand implements CommandExecutor {
                 }
                 Main.addInvite(new Invite(p.getUniqueId(), invited.getUniqueId()));
                 Main.msgPlayer(p, "You have invited " + invited.getName() + " to a duel!");
-                Main.msgPlayer(invited, p.getName()
-                        + " has invited you to a duel! Type /duel accept or click on this message to accept.");
+                TextComponent invMessage = new TextComponent(ChatColor.DARK_AQUA + "[Duels] " + ChatColor.AQUA + p.getName() + " has invited you to a duel! Type /duel accept or click on this message to accept.");
+                invMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "duel accept"));
+                invited.spigot().sendMessage(invMessage);
                 break;
             case "spectate":
                 // Spectate command
