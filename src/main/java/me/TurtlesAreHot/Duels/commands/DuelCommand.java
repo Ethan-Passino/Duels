@@ -67,7 +67,7 @@ public class DuelCommand implements CommandExecutor {
                 Main.addInvite(new Invite(p.getUniqueId(), invited.getUniqueId()));
                 Main.msgPlayer(p, "You have invited " + invited.getName() + " to a duel!");
                 TextComponent invMessage = new TextComponent(ChatColor.DARK_AQUA + "[Duels] " + ChatColor.AQUA + p.getName() + " has invited you to a duel! Type /duel accept or click on this message to accept.");
-                invMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "duel accept"));
+                invMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/duel accept"));
                 invited.spigot().sendMessage(invMessage);
                 break;
             case "spectate":
