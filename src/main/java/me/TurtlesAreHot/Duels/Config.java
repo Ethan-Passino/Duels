@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Config {
 
@@ -36,7 +37,7 @@ public class Config {
             e.printStackTrace();
         }
         return new Arena(arenaConfig.getLocation("player1-location"),
-                arenaConfig.getLocation("player2-location"), arenaConfig.getString("name"));
+                arenaConfig.getLocation("player2-location"), arenaConfig.getString("name"), arenaConfig.getStringList("commands-after"));
     }
 
 
