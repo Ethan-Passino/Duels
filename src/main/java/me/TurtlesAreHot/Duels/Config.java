@@ -14,6 +14,8 @@ public class Config {
 
     public static String getSpawnWorld() { return Main.getCustomConfig().getString("spawn-world"); }
 
+    public static int getTimeBefore() { return Main.getCustomConfig().getInt("time-before"); }
+
     public static String[] getArenas() {
         File f = new File(Main.getDataDirectory(), "/arenas/");
         if(!f.exists()) {
