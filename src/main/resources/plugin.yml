@@ -37,3 +37,6 @@ permissions:
   duels.list:
     description: Allows you to list all of the duels going on.
     default: op
+  duels.leave:
+    description: Allows you to leave a duel.
+    default: op
