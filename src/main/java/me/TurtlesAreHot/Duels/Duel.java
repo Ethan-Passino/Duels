@@ -77,8 +77,12 @@ public class Duel {
 
     public void tpAllToSpawn(Player p1, Player p2) {
         World spawnWorld = Bukkit.getWorld(Config.getSpawnWorld());
-        p1.teleport(spawnWorld.getSpawnLocation());
-        p2.teleport(spawnWorld.getSpawnLocation());
+        if(p1 != null) {
+            p1.teleport(spawnWorld.getSpawnLocation());
+        }
+        if(p2 != null) {
+            p2.teleport(spawnWorld.getSpawnLocation());
+        }
         for(UUID spectator : spectators) {
             Bukkit.getPlayer(spectator).setGameMode(GameMode.SURVIVAL);
             Bukkit.getPlayer(spectator).teleport(spawnWorld.getSpawnLocation());
@@ -97,9 +101,14 @@ public class Duel {
         } else {
             message = ChatColor.AQUA + "This match was won by " + p2.getDisplayName() + "!";
         }
-        p1.sendMessage(message);
-        p2.sendMessage(message);
+        if(p1 != null) {
+            p1.sendMessage(message);
+        }
+        if(p2 != null) {
+            p2.sendMessage(message);
+        }
         tpAllToSpawn(p1, p2);
+        Main.removeDuel(this);
     }
 
 
