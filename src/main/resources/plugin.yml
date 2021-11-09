@@ -1,0 +1,39 @@
+main: me.TurtlesAreHot.Duels.Main
+name: Duels
+version: 1.0.0
+description: This is a Bending Duels plugin.
+author: TurtlesAreHot
+api-version: 1.13
+commands:
+  arena:
+    description: Allows you to modify/create/delete arenas.
+  duel:
+    description: Allows you to do any of the duel commands
+permissions:
+  duels.arena.help:
+    description: Lets you see the help command
+    default: op
+  duels.arena.create:
+    description: Lets you create an arena
+    default: op
+  duels.arena.list:
+    description: Lets you list all of the available arenas
+    default: op
+  duels.arena.pos:
+    description: Lets you set the one of the positions while creating an arena.
+    default: op
+  duels.arena.delete:
+    description: Lets you delete an arena.
+    default: op
+  duels.help:
+    description: Allows you to see the duels help command.
+    default: op
+  duels.invite:
+    description: Allows you to invite someone to a duel.
+    default: op
+  duels.spectate:
+    description: Allows you to spectate a player
+    default: op
+  duels.list:
+    description: Allows you to list all of the duels going on.
+    default: op
