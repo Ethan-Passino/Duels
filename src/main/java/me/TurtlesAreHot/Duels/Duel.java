@@ -21,6 +21,7 @@ public class Duel {
     private List<UUID> spectators;
     private DuelPlayer winner;
     private int timerTaskId;
+    private int waitTimer;
     private boolean ended = false;
 
     public Duel(DuelPlayer p1, DuelPlayer p2, Arena a) {
@@ -72,6 +73,17 @@ public class Duel {
         Player p1 = Bukkit.getPlayer(player1.getPlayer());
         Player p2 = Bukkit.getPlayer(player2.getPlayer());
         tpPlayers(p1, p2);
+        Main.msgPlayer(p1, "The match will start in " + Config.getTimeBefore() + " seconds...");
+        Main.msgPlayer(p2, "The match will start in " + Config.getTimeBefore() + " seconds...");
+        Main.addCantMovePlayer(p1.getUniqueId());
+        Main.addCantMovePlayer(p2.getUniqueId());
+        waitTimer = Bukkit.getScheduler().scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("Duels"), () -> {
+            Main.msgPlayer(p1, "Match has started!");
+            Main.msgPlayer(p2, "Match has started!");
+            Main.removeCantMovePlayer(p1.getUniqueId());
+            Main.removeCantMovePlayer(p2.getUniqueId());
+            Bukkit.getScheduler().cancelTask(waitTimer);
+        }, 20 * Config.getTimeBefore(), 20 * Config.getTimeBefore());
         timerTaskId = startTimer(p1, p2);
     }
 
