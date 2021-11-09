@@ -124,6 +124,15 @@ public class Main extends JavaPlugin {
         }
         return null;
     }
+    
+    public static Duel getDuelSpectator(UUID spectator) {
+        for(Duel d : duels) {
+            if(d.getSpectators().contains(spectator)) {
+                return d;
+            }
+        }
+        return null;
+    }
 
     public static List<UUID> getDuelPlayers() {
         List<UUID> dps = new ArrayList<>();
