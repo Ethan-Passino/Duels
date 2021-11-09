@@ -28,7 +28,7 @@ public class Duel {
         this.player1 = p1;
         this.player2 = p2;
         this.arena = a;
-        this.timeLeft = Config.getTimer(); //get default in the config.
+        this.timeLeft = Config.getTimer() + 1; //get default in the config.
         this.spectators = new ArrayList<>();
         this.winner = null;
     }
