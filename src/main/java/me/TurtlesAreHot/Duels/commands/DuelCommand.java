@@ -66,6 +66,11 @@ public class DuelCommand implements CommandExecutor {
                     Main.msgPlayer(p, "This player already has an invitation from someone else. Please try again later.");
                     break;
                 }
+                if(Main.getDuel(invited.getUniqueId()) != null || Main.getDuelSpectator(invited.getUniqueId()) != null) {
+                    // Check and make sure the person you are trying to invite is not in a duel (or spectating one)
+                    Main.msgPlayer(p, "This player is currently in a duel. Please wait until they leave the duel.");
+                    break;
+                }
                 Main.addInvite(new Invite(p.getUniqueId(), invited.getUniqueId()));
                 Main.msgPlayer(p, "You have invited " + invited.getName() + " to a duel!");
                 TextComponent invMessage = new TextComponent(ChatColor.DARK_AQUA + "[Duels] " + ChatColor.AQUA + p.getName() + " has invited you to a duel! Type /duel accept or click on this message to accept.");
