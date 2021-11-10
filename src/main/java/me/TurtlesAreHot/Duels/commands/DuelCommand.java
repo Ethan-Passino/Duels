@@ -49,6 +49,10 @@ public class DuelCommand implements CommandExecutor {
                     Main.noPerms(p, "duels.invite");
                     break;
                 }
+                if(Main.getDuel(p.getUniqueId()) != null || Main.getDuelSpectator(p.getUniqueId()) != null) {
+                    Main.msgPlayer(p, "You are already in a duel so you cannot invite someone to one.");
+                    break;
+                }
                 if(args.length != 2) {
                     Main.msgPlayer(p, "You did not provide a name for the invitation or provided too many arguments.");
                     break;
@@ -120,6 +124,10 @@ public class DuelCommand implements CommandExecutor {
                 // Case when accepting an invitation
                 if(!(p.hasPermission("duels.invite"))) {
                     Main.noPerms(p, "duels.invite");
+                    break;
+                }
+                if(Main.getDuel(p.getUniqueId()) != null || Main.getDuelSpectator(p.getUniqueId()) != null) {
+                    Main.msgPlayer(p, "You are already in a duel so you cannot accept another duel.");
                     break;
                 }
                 Invite inv = Main.hasInvite(p.getUniqueId());
