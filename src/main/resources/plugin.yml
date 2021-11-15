@@ -4,6 +4,7 @@ version: 1.0.0
 description: This is a Bending Duels plugin.
 author: TurtlesAreHot
 api-version: 1.13
+depend: [ProjectKorra]
 commands:
   arena:
     description: Allows you to modify/create/delete arenas.

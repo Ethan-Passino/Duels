@@ -2,6 +2,7 @@ package me.TurtlesAreHot.Duels;
 
 import me.TurtlesAreHot.Duels.commands.ArenaCommand;
 import me.TurtlesAreHot.Duels.commands.DuelCommand;
+import me.TurtlesAreHot.Duels.events.onBend;
 import me.TurtlesAreHot.Duels.events.onDisconnect;
 import me.TurtlesAreHot.Duels.events.onKill;
 import me.TurtlesAreHot.Duels.events.onMovement;
@@ -44,6 +45,7 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new onDisconnect(), this);
         this.getServer().getPluginManager().registerEvents(new onKill(), this);
         this.getServer().getPluginManager().registerEvents(new onMovement(), this);
+        this.getServer().getPluginManager().registerEvents(new onBend(), this);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> checkInvites(), 0, 1200);
     }
 
