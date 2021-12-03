@@ -88,6 +88,8 @@ public class Duel {
     }
 
     public void tpAllToSpawn(Player p1, Player p2) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "combatlogx untag " + p1.getName());
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "combatlogx untag " + p2.getName());
         World spawnWorld = Bukkit.getWorld(Config.getSpawnWorld());
         if(p1 != null) {
             p1.teleport(spawnWorld.getSpawnLocation());
