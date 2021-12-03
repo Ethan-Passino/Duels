@@ -28,6 +28,20 @@
             <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.strangeone101</groupId>
+            <artifactId>platinumarenas</artifactId>
+            <version>0.5-r33</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/TurtlesAreHot/Downloads/PlatinumArenas-0.5.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.projectkorra</groupId>
+            <artifactId>projectkorra</artifactId>
+            <version>1.9.2</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/TurtlesAreHot/Downloads/ProjectKorra-1.9.2.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
