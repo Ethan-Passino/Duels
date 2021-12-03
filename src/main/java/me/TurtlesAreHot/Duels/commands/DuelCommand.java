@@ -75,6 +75,10 @@ public class DuelCommand implements CommandExecutor {
                     Main.msgPlayer(p, "This player is currently in a duel. Please wait until they leave the duel.");
                     break;
                 }
+                if(!Main.isArenaAvailable()) {
+                    Main.msgPlayer(p, "Currently there is no arenas available to 1v1 in. Please try again later.");
+                    break;
+                }
                 Main.addInvite(new Invite(p.getUniqueId(), invited.getUniqueId()));
                 Main.msgPlayer(p, "You have invited " + invited.getName() + " to a duel!");
                 TextComponent invMessage = new TextComponent(ChatColor.DARK_AQUA + "[Duels] " + ChatColor.AQUA + p.getName() + " has invited you to a duel! Type /duel accept or click on this message to accept.");

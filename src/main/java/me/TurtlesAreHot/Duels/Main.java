@@ -197,13 +197,21 @@ public class Main extends JavaPlugin {
     }
 
     public static boolean isArenaAvailable() {
-        for(boolean inUse : arenas.values()) {
-            if(!inUse) {
-                return true;
+        int using = 0;
+        for(Map.Entry<me.TurtlesAreHot.Duels.Arena, Boolean> entry : arenas.entrySet()) {
+            if(entry.getValue()) {
+                using++;
+                continue;
             }
-
+            if(!(isArenaAvailable(entry.getKey()))) {
+                using++;
+                continue;
+            }
         }
-        return false;
+        if(using >= arenas.size()) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean isArenaAvailable(me.TurtlesAreHot.Duels.Arena a) {
