@@ -30,6 +30,8 @@ public class Arena {
 
     public List<String> getCommandsAfter() { return this.commandsAfter; }
 
+    public String getName() { return this.name; }
+
     public boolean exists() {
         File arenaConfigFile = new File(Main.getDataDirectory(), "/arenas/" + name + ".yml");
         return arenaConfigFile.exists();

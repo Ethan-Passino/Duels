@@ -1,8 +1,8 @@
 package me.TurtlesAreHot.Duels;
 
+import com.strangeone101.platinumarenas.Arena;
 import me.TurtlesAreHot.Duels.commands.ArenaCommand;
 import me.TurtlesAreHot.Duels.commands.DuelCommand;
-import me.TurtlesAreHot.Duels.events.onBend;
 import me.TurtlesAreHot.Duels.events.onDisconnect;
 import me.TurtlesAreHot.Duels.events.onKill;
 import me.TurtlesAreHot.Duels.events.onMovement;
@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
     private static List<Duel> duels;
     // target, requester
     private static HashMap<Invite, Long> invites;
-    private static HashMap<Arena, Boolean> arenas;
+    private static HashMap<me.TurtlesAreHot.Duels.Arena, Boolean> arenas;
     private static List<UUID> cantMove;
     @Override
     public void onEnable() {
@@ -45,7 +45,6 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new onDisconnect(), this);
         this.getServer().getPluginManager().registerEvents(new onKill(), this);
         this.getServer().getPluginManager().registerEvents(new onMovement(), this);
-        this.getServer().getPluginManager().registerEvents(new onBend(), this);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> checkInvites(), 0, 1200);
     }
 
@@ -126,7 +125,7 @@ public class Main extends JavaPlugin {
         }
         return null;
     }
-    
+
     public static Duel getDuelSpectator(UUID spectator) {
         for(Duel d : duels) {
             if(d.getSpectators().contains(spectator)) {
@@ -182,11 +181,13 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public static Arena getRandomArena() {
-        List<Arena> availableArenas = new ArrayList<>();
-        for(Map.Entry<Arena, Boolean> entry : arenas.entrySet()) {
+    public static me.TurtlesAreHot.Duels.Arena getRandomArena() {
+        List<me.TurtlesAreHot.Duels.Arena> availableArenas = new ArrayList<>();
+        for(Map.Entry<me.TurtlesAreHot.Duels.Arena, Boolean> entry : arenas.entrySet()) {
             if(!entry.getValue()) {
-                availableArenas.add(entry.getKey());
+                if(isArenaAvailable(entry.getKey())) {
+                    availableArenas.add(entry.getKey());
+                }
             }
         }
         Random rand = new Random();
@@ -203,7 +204,15 @@ public class Main extends JavaPlugin {
         return false;
     }
 
-    public static void addArena(Arena a) {
+    public static boolean isArenaAvailable(me.TurtlesAreHot.Duels.Arena a) {
+        com.strangeone101.platinumarenas.Arena are = com.strangeone101.platinumarenas.Arena.arenas.get(a.getName().toLowerCase());
+        if(are.isBeingReset()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static void addArena(me.TurtlesAreHot.Duels.Arena a) {
         arenas.put(a, false);
     }
 
