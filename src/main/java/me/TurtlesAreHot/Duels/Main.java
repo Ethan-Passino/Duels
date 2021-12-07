@@ -108,6 +108,17 @@ public class Main extends JavaPlugin {
 
     public static void addDuel(Duel d) {
         duels.add(d);
+        for(Map.Entry<Invite, Long> ins : invites.entrySet()) {
+            Invite inv = ins.getKey();
+            if(d.getPlayer1().getPlayer().equals(inv.getInviter())) {
+                invites.remove(inv);
+                break;
+            }
+            if (d.getPlayer2().getPlayer().equals(inv.getInviter())) {
+                invites.remove(inv);
+                break;
+            }
+        }
     }
 
     public static void removeDuel(Duel d) {
