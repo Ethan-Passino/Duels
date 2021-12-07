@@ -107,23 +107,26 @@ public class Main extends JavaPlugin {
     }
 
     public static void addDuel(Duel d) {
+        removeFromInvites(d.getPlayer1().getPlayer());
+        removeFromInvites(d.getPlayer2().getPlayer());
         duels.add(d);
+
+    }
+
+    public static void removeFromInvites(UUID p) {
         for(Map.Entry<Invite, Long> ins : invites.entrySet()) {
             Invite inv = ins.getKey();
-            if(d.getPlayer1().getPlayer().equals(inv.getInviter())) {
+            if(inv.getInvited().equals(p)) {
                 invites.remove(inv);
+                break;
             }
-            if(d.getPlayer1().getPlayer().equals(inv.getInvited())) {
+            if(inv.getInviter().equals(p)) {
                 invites.remove(inv);
-            }
-            if (d.getPlayer2().getPlayer().equals(inv.getInviter())) {
-                invites.remove(inv);
-            }
-            if (d.getPlayer2().getPlayer().equals(inv.getInvited())) {
-                invites.remove(inv);
+                break;
             }
         }
     }
+
 
     public static void removeDuel(Duel d) {
         for(int i = 0; i < duels.size(); i++) {
