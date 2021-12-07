@@ -8,10 +8,12 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 import java.util.UUID;
@@ -130,6 +132,10 @@ public class DuelCommand implements CommandExecutor {
                     Main.noPerms(p, "duels.invite");
                     break;
                 }
+                if(hasArmorOn(p)) {
+                    Main.msgPlayer(p, "You cannot accept a duel with any kind of armor on.");
+                    break;
+                }
                 if(Main.getDuel(p.getUniqueId()) != null || Main.getDuelSpectator(p.getUniqueId()) != null) {
                     Main.msgPlayer(p, "You are already in a duel so you cannot accept another duel.");
                     break;
@@ -209,5 +215,91 @@ public class DuelCommand implements CommandExecutor {
                 break;
         }
         return false;
+    }
+
+    public boolean hasArmorOn(Player p) {
+        ItemStack[] contents = p.getInventory().getContents();
+        ItemStack helm = contents[39];
+        ItemStack chest = contents[38];
+        ItemStack leg = contents[37];
+        ItemStack boot = contents[36];
+        if(helm != null) {
+            if(isArmor(helm.getType())) {
+                return true;
+            }
+        }
+        if(chest != null) {
+            if(isArmor(chest.getType())) {
+                return true;
+            }
+        }
+        if(leg != null) {
+            if (isArmor(leg.getType())) {
+                return true;
+            }
+        }
+        if(boot != null) {
+            if(isArmor(boot.getType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isArmor(Material m) {
+        switch(m) {
+            case NETHERITE_HELMET:
+                return true;
+            case NETHERITE_CHESTPLATE:
+                return true;
+            case NETHERITE_LEGGINGS:
+                return true;
+            case NETHERITE_BOOTS:
+                return true;
+            case DIAMOND_HELMET:
+                return true;
+            case DIAMOND_CHESTPLATE:
+                return true;
+            case DIAMOND_LEGGINGS:
+                return true;
+            case DIAMOND_BOOTS:
+                return true;
+            case GOLDEN_HELMET:
+                return true;
+            case GOLDEN_CHESTPLATE:
+                return true;
+            case GOLDEN_LEGGINGS:
+                return true;
+            case GOLDEN_BOOTS:
+                return true;
+            case CHAINMAIL_HELMET:
+                return true;
+            case CHAINMAIL_CHESTPLATE:
+                return true;
+            case CHAINMAIL_LEGGINGS:
+                return true;
+            case CHAINMAIL_BOOTS:
+                return true;
+            case IRON_HELMET:
+                return true;
+            case IRON_CHESTPLATE:
+                return true;
+            case IRON_LEGGINGS:
+                return true;
+            case IRON_BOOTS:
+                return true;
+            case LEATHER_HELMET:
+                return true;
+            case LEATHER_CHESTPLATE:
+                return true;
+            case LEATHER_LEGGINGS:
+                return true;
+            case LEATHER_BOOTS:
+                return true;
+            case ELYTRA:
+                return true;
+            default:
+                return false;
+        }
     }
 }
