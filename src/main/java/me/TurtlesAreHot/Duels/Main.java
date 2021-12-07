@@ -112,11 +112,15 @@ public class Main extends JavaPlugin {
             Invite inv = ins.getKey();
             if(d.getPlayer1().getPlayer().equals(inv.getInviter())) {
                 invites.remove(inv);
-                break;
+            }
+            if(d.getPlayer1().getPlayer().equals(inv.getInvited())) {
+                invites.remove(inv);
             }
             if (d.getPlayer2().getPlayer().equals(inv.getInviter())) {
                 invites.remove(inv);
-                break;
+            }
+            if (d.getPlayer2().getPlayer().equals(inv.getInvited())) {
+                invites.remove(inv);
             }
         }
     }
