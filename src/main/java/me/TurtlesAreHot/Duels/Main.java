@@ -189,16 +189,30 @@ public class Main extends JavaPlugin {
     }
 
     public void checkInvites() {
-        for(Map.Entry<Invite, Long> ins : invites.entrySet()) {
-            if(System.currentTimeMillis() - ins.getValue() >= 120000) {
+        List<Invite> invs = new ArrayList<>(invites.keySet());
+        List<Long> times = new ArrayList<>(invites.values());
+        for(int i = 0; i < invs.size(); i++) {
+            Long time = times.get(i);
+            Invite inv = invs.get(i);
+            if(System.currentTimeMillis() - time >= 120000) {
                 // If the time in which the invite was created was 2 minutes or more ago.
-                Player invited = Bukkit.getPlayer(ins.getKey().getInvited());
+                Player invited = Bukkit.getPlayer(inv.getInvited());
                 if(invited != null) {
                     msgPlayer(invited, "The invitation someone sent you expired!");
                 }
-                invites.remove(ins.getKey());
+                invites.remove(inv);
             }
         }
+        ///for(Map.Entry<Invite, Long> ins : invites.entrySet()) {
+           // if(System.currentTimeMillis() - ins.getValue() >= 120000) {
+                // If the time in which the invite was created was 2 minutes or more ago.
+             //   Player invited = Bukkit.getPlayer(ins.getKey().getInvited());
+              //  if(invited != null) {
+                //    msgPlayer(invited, "The invitation someone sent you expired!");
+                //}
+                //invites.remove(ins.getKey());
+            //}
+        //}
     }
 
     public static me.TurtlesAreHot.Duels.Arena getRandomArena() {
