@@ -108,7 +108,7 @@ public class Duel {
         // stops timer task
         Bukkit.getScheduler().cancelTask(this.timerTaskId);
         String message = "";
-        if(winner.getPlayer() == null) {
+        if(winner == null) {
             message = ChatColor.AQUA + "There was a tie!";
         } else if(winner.getPlayer().equals(player1.getPlayer())) {
             message = ChatColor.AQUA + "This match was won by " + p1.getDisplayName() + "!";
